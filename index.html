@@ -4,11 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .searchbox, .sort {
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
-    <script src="index.js"></script>
-    <div class="searchbox">
-        <input type="text" placeholder="Type and press enter to filter" size="25">
-    </div>
+    <h3>
+        <div class="searchbox">
+            <label for="searchbox">Filter:</label>
+            <input type="text" placeholder="Type and press enter to filter" size="25">
+        </div>
+        <div class="sort">
+            <label for="sort">Sort by:</label>
+            <select name="sort">
+                <option value = "" disabled selected hidden>Select for sort options</option>
+                <option value = "name">Name, alphabetically</option>
+                <option value = "firstYearOfPlay">First Year of Play, numerically</option>
+                <option value = "conference">Conference, alphabetically</option>
+                <option value = "division">Division, alphabetically</option>
+                <option value = "venue">Venue, alphabetically</option>
+            </select>
+        </div>
+    </h3>
+    <h1>NHL Teams</h1>
 </body>
 </html>
