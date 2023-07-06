@@ -25,11 +25,16 @@ function showTeams(array) {
     const list = document.getElementById('list');
     list.innerText = '';
     array.forEach(team => {
-        const teamName = document.createElement('li')
+        const teamName = document.createElement('li');
+        const teamInfoContainer = document.createElement('ul');
+        const firstYearOfPlay = document.createElement('li');
+
         teamName.textContent = `${team.name}, ${team.abbreviation}`;
+        firstYearOfPlay.textContent = `First Year of Play: ${team.firstYearOfPlay}`
+
         list.appendChild(teamName);
+        list.appendChild(teamInfoContainer);
+        teamInfoContainer.appendChild(firstYearOfPlay);
+
     });
 };
-
-
-
