@@ -47,5 +47,5 @@ function showTeams(array) {
         //teamInfoContainer.appendChild(
 
 
-    });
+    }); 
 };
