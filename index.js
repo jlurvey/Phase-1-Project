@@ -28,13 +28,19 @@ function showTeams(array) {
         const teamName = document.createElement('li');
         const teamInfoContainer = document.createElement('ul');
         const firstYearOfPlay = document.createElement('li');
+        const conference = document.createElement('li');
+
 
         teamName.textContent = `${team.name}, ${team.abbreviation}`;
         firstYearOfPlay.textContent = `First Year of Play: ${team.firstYearOfPlay}`
+        conference.textContent = `Conference: ${team.conference.name}`
+
 
         list.appendChild(teamName);
         list.appendChild(teamInfoContainer);
         teamInfoContainer.appendChild(firstYearOfPlay);
+        teamInfoContainer.appendChild(conference);
+
 
     });
 };
