@@ -31,6 +31,7 @@ function showTeams(array) {
         const conference = document.createElement('li');
         const division = document.createElement('li');
         const venue = document.createElement('li');
+        const teamWebsite = document.createElement('li')
 
         
 
@@ -39,7 +40,7 @@ function showTeams(array) {
         conference.textContent = `Conference: ${team.conference.name}`;
         division.textContent = `Division: ${team.division.name}, '${team.division.nameShort}'`;
         venue.textContent = `Venue: ${team.venue.name}`;
-
+        teamWebsite.textContent = `Link to team website: ${team.officialSiteUrl}`;
 
         list.appendChild(teamName);
         list.appendChild(teamInfoContainer);
@@ -47,8 +48,7 @@ function showTeams(array) {
         teamInfoContainer.appendChild(conference);
         teamInfoContainer.appendChild(division);
         teamInfoContainer.appendChild(venue);
-        //teamInfoContainer.appendChild(
-
+        teamInfoContainer.appendChild(teamWebsite);
 
     }); 
 };
