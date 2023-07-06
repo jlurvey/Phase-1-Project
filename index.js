@@ -14,7 +14,8 @@ function fetchData() {
     .then((data) => {
         allTeamsArray = data.teams
         //console.log(allTeamsArray);
-        showTeams(allTeamsArray);
+        //showTeams(allTeamsArray);
+        sortTeamAlpha(allTeamsArray);
     })
 };
 
@@ -33,8 +34,6 @@ function showTeams(array) {
         const venue = document.createElement('li');
         const teamWebsite = document.createElement('li')
 
-        
-
         teamName.textContent = `${team.name}, '${team.abbreviation}'`;
         firstYearOfPlay.textContent = `First Year of Play: ${team.firstYearOfPlay}`;
         conference.textContent = `Conference: ${team.conference.name}`;
@@ -51,4 +50,22 @@ function showTeams(array) {
         teamInfoContainer.appendChild(teamWebsite);
 
     }); 
+};
+
+// sort teams alphabetically
+function sortTeamAlpha(array) {
+    const newArray = [...array];
+    const sortedArray = newArray.sort((a,b) => {
+        const nameA = a.name.toUpperCase();
+        const nameB = b.name.toUpperCase();
+        if (nameA < nameB) {
+            return -1;
+        }
+        if (nameA > nameB) {
+            return 1;
+        }
+        return 0;
+    });
+    showTeams(sortedArray);
+    console.log(sortedArray);
 };
