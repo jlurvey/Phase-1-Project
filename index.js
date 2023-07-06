@@ -16,9 +16,10 @@ function fetchData() {
         //console.log(allTeamsArray);
         //showTeams(allTeamsArray);
         //sortTeamAlpha(allTeamsArray);
+        sortYearNum(allTeamsArray);
         //sortConferenceAlpha(allTeamsArray);
         //sortDivisionAlpha(allTeamsArray);
-        sortVenueAlpha(allTeamsArray);
+        //sortVenueAlpha(allTeamsArray);
     })
 };
 
@@ -73,6 +74,15 @@ function sortTeamAlpha(array) {
     console.log(sortedArray);
 };
 
+//sort first year of play numerically
+function sortYearNum(array) {
+    const newArray = [...array];
+    const sortedArray = newArray.sort((a,b) => a.firstYearOfPlay - b.firstYearOfPlay)
+    showTeams(sortedArray);
+    console.log(sortedArray);
+};
+
+//sort conference alphabetically
 function sortConferenceAlpha(array) {
     const newArray = [...array];
     const sortedArray = newArray.sort((a,b) => {
@@ -90,6 +100,7 @@ function sortConferenceAlpha(array) {
     console.log(sortedArray);
 };
 
+//sort division alphabetically
 function sortDivisionAlpha(array) {
     const newArray = [...array];
     const sortedArray = newArray.sort((a,b) => {
@@ -107,6 +118,7 @@ function sortDivisionAlpha(array) {
     console.log(sortedArray);
 };
 
+//sort venue alphabetically
 function sortVenueAlpha(array) {
     const newArray = [...array];
     const sortedArray = newArray.sort((a,b) => {
