@@ -29,17 +29,22 @@ function showTeams(array) {
         const teamInfoContainer = document.createElement('ul');
         const firstYearOfPlay = document.createElement('li');
         const conference = document.createElement('li');
+        const division = document.createElement('li');
+        
 
-
-        teamName.textContent = `${team.name}, ${team.abbreviation}`;
-        firstYearOfPlay.textContent = `First Year of Play: ${team.firstYearOfPlay}`
-        conference.textContent = `Conference: ${team.conference.name}`
+        teamName.textContent = `${team.name}, '${team.abbreviation}'`;
+        firstYearOfPlay.textContent = `First Year of Play: ${team.firstYearOfPlay}`;
+        conference.textContent = `Conference: ${team.conference.name}`;
+        division.textContent = `Division: ${team.division.name}, '${team.division.nameShort}'`;
 
 
         list.appendChild(teamName);
         list.appendChild(teamInfoContainer);
         teamInfoContainer.appendChild(firstYearOfPlay);
         teamInfoContainer.appendChild(conference);
+        teamInfoContainer.appendChild(division);
+        //teamInfoContainer.appendChild(
+        //teamInfoContainer.appendChild(
 
 
     });
