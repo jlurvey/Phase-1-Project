@@ -16,7 +16,8 @@ function fetchData() {
         //console.log(allTeamsArray);
         //showTeams(allTeamsArray);
         //sortTeamAlpha(allTeamsArray);
-        sortConferenceAlpha(allTeamsArray);
+        //sortConferenceAlpha(allTeamsArray);
+        sortDivisionAlpha(allTeamsArray);
     })
 };
 
@@ -76,6 +77,23 @@ function sortConferenceAlpha(array) {
     const sortedArray = newArray.sort((a,b) => {
         const nameA = a.conference.name.toUpperCase();
         const nameB = b.conference.name.toUpperCase();
+        if (nameA < nameB) {
+            return -1;
+        }
+        if (nameA > nameB) {
+            return 1;
+        }
+        return 0;
+    });
+    showTeams(sortedArray);
+    console.log(sortedArray);
+};
+
+function sortDivisionAlpha(array) {
+    const newArray = [...array];
+    const sortedArray = newArray.sort((a,b) => {
+        const nameA = a.division.name.toUpperCase();
+        const nameB = b.division.name.toUpperCase();
         if (nameA < nameB) {
             return -1;
         }
