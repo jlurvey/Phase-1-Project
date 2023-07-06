@@ -30,12 +30,15 @@ function showTeams(array) {
         const firstYearOfPlay = document.createElement('li');
         const conference = document.createElement('li');
         const division = document.createElement('li');
+        const venue = document.createElement('li');
+
         
 
         teamName.textContent = `${team.name}, '${team.abbreviation}'`;
         firstYearOfPlay.textContent = `First Year of Play: ${team.firstYearOfPlay}`;
         conference.textContent = `Conference: ${team.conference.name}`;
         division.textContent = `Division: ${team.division.name}, '${team.division.nameShort}'`;
+        venue.textContent = `Venue: ${team.venue.name}`;
 
 
         list.appendChild(teamName);
@@ -43,7 +46,7 @@ function showTeams(array) {
         teamInfoContainer.appendChild(firstYearOfPlay);
         teamInfoContainer.appendChild(conference);
         teamInfoContainer.appendChild(division);
-        //teamInfoContainer.appendChild(
+        teamInfoContainer.appendChild(venue);
         //teamInfoContainer.appendChild(
 
 
