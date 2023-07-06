@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => console.log("We are connected!"));
+document.addEventListener('DOMContentLoaded', () => console.log('We are connected!'));
 
 //external API or json server with mock back-end
 //get working fetch request
@@ -7,8 +7,29 @@ document.addEventListener('DOMContentLoaded', () => fetchData());
 
 //hypothetically, get API to fetch data and log in console, then commit, comments present tense "working fetch"
 
+//fetch API data
 function fetchData() {
     fetch('https://statsapi.web.nhl.com/api/v1/teams')
     .then((resp) => resp.json())
-    .then((data) => console.log(data))
+    .then((data) => {
+        allTeamsArray = data.teams
+        //console.log(allTeamsArray);
+        showTeams(allTeamsArray);
+    })
 };
+
+
+
+//display team information
+function showTeams(array) {
+    const list = document.getElementById('list');
+    list.innerText = '';
+    array.forEach(team => {
+        const teamName = document.createElement('li')
+        teamName.textContent = `${team.name}, ${team.abbreviation}`;
+        list.appendChild(teamName);
+    });
+};
+
+
+
