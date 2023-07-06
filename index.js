@@ -15,7 +15,8 @@ function fetchData() {
         allTeamsArray = data.teams
         //console.log(allTeamsArray);
         //showTeams(allTeamsArray);
-        sortTeamAlpha(allTeamsArray);
+        //sortTeamAlpha(allTeamsArray);
+        sortConferenceAlpha(allTeamsArray);
     })
 };
 
@@ -58,6 +59,23 @@ function sortTeamAlpha(array) {
     const sortedArray = newArray.sort((a,b) => {
         const nameA = a.name.toUpperCase();
         const nameB = b.name.toUpperCase();
+        if (nameA < nameB) {
+            return -1;
+        }
+        if (nameA > nameB) {
+            return 1;
+        }
+        return 0;
+    });
+    showTeams(sortedArray);
+    console.log(sortedArray);
+};
+
+function sortConferenceAlpha(array) {
+    const newArray = [...array];
+    const sortedArray = newArray.sort((a,b) => {
+        const nameA = a.conference.name.toUpperCase();
+        const nameB = b.conference.name.toUpperCase();
         if (nameA < nameB) {
             return -1;
         }
