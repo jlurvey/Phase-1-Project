@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => console.log('We are connected!'));
+//document.addEventListener('DOMContentLoaded', () => console.log('We are connected!'));
 
 //external API or json server with mock back-end
 //get working fetch request
@@ -34,11 +34,12 @@ function fetchData() {
         //sortDivisionAlpha(allTeamsArray);
         //sortVenueAlpha(allTeamsArray);
     })
+    
     const dropdown = document.getElementById('sort')
 
     dropdown.addEventListener('change', () => {
         const selectedOption = dropdown.value;
-        sortAlpha(allTeamsArray,selectedOption)
+        sortTeams(allTeamsArray,selectedOption)
     });
 };
 
@@ -93,12 +94,34 @@ function sortTeamAlpha(array) {
     console.log(sortedArray);
 }; */
 
+//sorts all options
+function sortTeams(array, option) {
+    const newArray = [...array];
+    if (option === 'firstYearOfPlay') {
+    const sortedArray = newArray.sort((a,b) => a.firstYearOfPlay - b.firstYearOfPlay)
+    showTeams(sortedArray);
+    } else {
+        const sortedArray = newArray.sort((a,b) => {
+            const nameA = a[option].name.toUpperCase();
+            const nameB = b[option].name.toUpperCase();
+            if (nameA < nameB) {
+                return -1;
+            }
+            if (nameA > nameB) {
+                return 1;
+            }
+            return 0;
+        });
+        showTeams(sortedArray);
+    }
+};
+
+
 //sort first year of play numerically
 function sortYearNum(array) {
     const newArray = [...array];
     const sortedArray = newArray.sort((a,b) => a.firstYearOfPlay - b.firstYearOfPlay)
     showTeams(sortedArray);
-    console.log(sortedArray);
 };
 
 //sort options alphabetically
@@ -116,7 +139,6 @@ function sortAlpha(array, option) {
         return 0;
     });
     showTeams(sortedArray);
-    console.log(sortedArray);
 };
 
 //sort conference alphabetically
