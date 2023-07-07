@@ -24,7 +24,7 @@ function fetchData() {
             return 0;
         });
         //showTeams(allTeamsArray);
-        filterTeams(allTeamsArray,query="");
+        filterTeams(allTeamsArray,query="97");
     })
     
     const dropdown = document.getElementById('sort')
@@ -94,7 +94,7 @@ function sortTeams(array, option) {
 function filterTeams(array,query) {
     const newArray = [...array];
     const filteredArray = newArray.filter((team) =>
-    team.name.toLowerCase().includes(query.toLowerCase()) || team.abbreviation.toLowerCase().includes(query.toLowerCase())
+    team.name.toLowerCase().includes(query.toLowerCase()) || team.abbreviation.toLowerCase().includes(query.toLowerCase()) || team.firstYearOfPlay.includes(query.toString())
     );
     console.log(filteredArray);
     showTeams(filteredArray)
