@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang="en">
 <head>
-    <meta charset='UTF-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
         #searchbox, #sort {
@@ -11,17 +11,16 @@
     </style>
 </head>
 <body>
-    <script src='index.js'></script>
+    <script src="index.js"></script>
     <h3>
-        <div name ="searchbox" id="searchbox">
+        <div name ="searchbox">
             <label for="searchbox">Filter:</label>
-            <input type="text" placeholder="Type and press enter to filter" size="25">
+            <input type="text" id="searchbox" placeholder="Type and press enter to filter" size="25">
         </div>
-        <div id="sort">
+        <div name="sort">
             <label for="sort">Sort by:</label>
-            <select name="sort">
+            <select name="sort" id="sort">
                 <option value = "" disabled selected hidden>Select for sort options</option>
-                <option value = "name">Name, alphabetically</option>
                 <option value = "firstYear">First Year of Play, numerically</option>
                 <option value = "conference">Conference, alphabetically</option>
                 <option value = "division">Division, alphabetically</option>
@@ -29,9 +28,9 @@
             </select>
         </div>
     </h3>
-    <h1 id='title'>NHL Teams</h1>
-    <div id='teams-container'>
-        <ul id='list'>
+    <h1 id="title">NHL Teams</h1>
+    <div id="teams-container">
+        <ul id="list">
 
         </ul>
     </div>
