@@ -24,13 +24,22 @@ function fetchData() {
             return 0;
         });
         //console.log(allTeamsArray);
-        //showTeams(allTeamsArray);
+        showTeams(allTeamsArray);
         //sortTeamAlpha(allTeamsArray);
         //sortYearNum(allTeamsArray);
+        //sortAlpha(allTeamsArray,"conference");
+        //sortAlpha(allTeamsArray,division);
+        //sortAlpha(allTeamsArray,venue);
         //sortConferenceAlpha(allTeamsArray);
         //sortDivisionAlpha(allTeamsArray);
-        sortVenueAlpha(allTeamsArray);
+        //sortVenueAlpha(allTeamsArray);
     })
+    const dropdown = document.getElementById('sort')
+
+    dropdown.addEventListener('change', () => {
+        const selectedOption = dropdown.value;
+        sortAlpha(allTeamsArray,selectedOption)
+    });
 };
 
 
@@ -92,6 +101,24 @@ function sortYearNum(array) {
     console.log(sortedArray);
 };
 
+//sort options alphabetically
+function sortAlpha(array, option) {
+    const newArray = [...array];
+    const sortedArray = newArray.sort((a,b) => {
+        const nameA = a[option].name.toUpperCase();
+        const nameB = b[option].name.toUpperCase();
+        if (nameA < nameB) {
+            return -1;
+        }
+        if (nameA > nameB) {
+            return 1;
+        }
+        return 0;
+    });
+    showTeams(sortedArray);
+    console.log(sortedArray);
+};
+
 //sort conference alphabetically
 function sortConferenceAlpha(array) {
     const newArray = [...array];
@@ -107,7 +134,6 @@ function sortConferenceAlpha(array) {
         return 0;
     });
     showTeams(sortedArray);
-    console.log(sortedArray);
 };
 
 //sort division alphabetically
@@ -125,7 +151,6 @@ function sortDivisionAlpha(array) {
         return 0;
     });
     showTeams(sortedArray);
-    console.log(sortedArray);
 };
 
 //sort venue alphabetically
@@ -143,5 +168,12 @@ function sortVenueAlpha(array) {
         return 0;
     });
     showTeams(sortedArray);
-    console.log(sortedArray);
 };
+
+//event listener for sort dropdown
+/* const dropdown = document.getElementById('sort')
+
+dropdown.addEventListener('change', () => {
+    const selectedOption = dropdown.option;
+    console.log(selectedOption)
+}); */
