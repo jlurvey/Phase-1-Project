@@ -12,14 +12,24 @@ function fetchData() {
     fetch('https://statsapi.web.nhl.com/api/v1/teams')
     .then((resp) => resp.json())
     .then((data) => {
-        allTeamsArray = data.teams
+        allTeamsArray = data.teams.sort((a,b) => {
+            const nameA = a.name.toUpperCase();
+            const nameB = b.name.toUpperCase();
+            if (nameA < nameB) {
+                return -1;
+            }
+            if (nameA > nameB) {
+                return 1;
+            }
+            return 0;
+        });
         //console.log(allTeamsArray);
         //showTeams(allTeamsArray);
         //sortTeamAlpha(allTeamsArray);
-        sortYearNum(allTeamsArray);
+        //sortYearNum(allTeamsArray);
         //sortConferenceAlpha(allTeamsArray);
         //sortDivisionAlpha(allTeamsArray);
-        //sortVenueAlpha(allTeamsArray);
+        sortVenueAlpha(allTeamsArray);
     })
 };
 
@@ -56,7 +66,7 @@ function showTeams(array) {
     }); 
 };
 
-// sort teams alphabetically
+/* // sort teams alphabetically
 function sortTeamAlpha(array) {
     const newArray = [...array];
     const sortedArray = newArray.sort((a,b) => {
@@ -72,7 +82,7 @@ function sortTeamAlpha(array) {
     });
     showTeams(sortedArray);
     console.log(sortedArray);
-};
+}; */
 
 //sort first year of play numerically
 function sortYearNum(array) {
