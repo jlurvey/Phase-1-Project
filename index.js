@@ -23,16 +23,8 @@ function fetchData() {
             }
             return 0;
         });
-        //console.log(allTeamsArray);
-        showTeams(allTeamsArray);
-        //sortTeamAlpha(allTeamsArray);
-        //sortYearNum(allTeamsArray);
-        //sortAlpha(allTeamsArray,"conference");
-        //sortAlpha(allTeamsArray,division);
-        //sortAlpha(allTeamsArray,venue);
-        //sortConferenceAlpha(allTeamsArray);
-        //sortDivisionAlpha(allTeamsArray);
-        //sortVenueAlpha(allTeamsArray);
+        //showTeams(allTeamsArray);
+        filterTeams(allTeamsArray,query="");
     })
     
     const dropdown = document.getElementById('sort')
@@ -76,24 +68,6 @@ function showTeams(array) {
     }); 
 };
 
-/* // sort teams alphabetically
-function sortTeamAlpha(array) {
-    const newArray = [...array];
-    const sortedArray = newArray.sort((a,b) => {
-        const nameA = a.name.toUpperCase();
-        const nameB = b.name.toUpperCase();
-        if (nameA < nameB) {
-            return -1;
-        }
-        if (nameA > nameB) {
-            return 1;
-        }
-        return 0;
-    });
-    showTeams(sortedArray);
-    console.log(sortedArray);
-}; */
-
 //sorts all options
 function sortTeams(array, option) {
     const newArray = [...array];
@@ -116,6 +90,35 @@ function sortTeams(array, option) {
     }
 };
 
+//filter displayed results
+function filterTeams(array,query) {
+    const newArray = [...array];
+    const filteredArray = newArray.filter((team) =>
+    team.name.toLowerCase().includes(query.toLowerCase())
+    );
+    console.log(filteredArray);
+    showTeams(filteredArray)
+};
+    
+
+
+// sort teams alphabetically
+function sortTeamAlpha(array) {
+    const newArray = [...array];
+    const sortedArray = newArray.sort((a,b) => {
+        const nameA = a.name.toUpperCase();
+        const nameB = b.name.toUpperCase();
+        if (nameA < nameB) {
+            return -1;
+        }
+        if (nameA > nameB) {
+            return 1;
+        }
+        return 0;
+    });
+    showTeams(sortedArray);
+    console.log(sortedArray);
+};
 
 //sort first year of play numerically
 function sortYearNum(array) {
@@ -198,4 +201,5 @@ function sortVenueAlpha(array) {
 dropdown.addEventListener('change', () => {
     const selectedOption = dropdown.option;
     console.log(selectedOption)
-}); */
+});
+*/
