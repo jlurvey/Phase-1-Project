@@ -12,33 +12,53 @@ function fetchData() {
     fetch('https://statsapi.web.nhl.com/api/v1/teams')
     .then((resp) => resp.json())
     .then((data) => {
-        allTeamsArray = data.teams.sort((a,b) => {
+        const teamsArray = mapTeamData(data.teams)
+        //initially displays teams alphabetically
+        teamsArray.sort((a,b) => {
             const nameA = a.name.toUpperCase();
             const nameB = b.name.toUpperCase();
-            if (nameA < nameB) {
-                return -1;
-            }
-            if (nameA > nameB) {
-                return 1;
-            }
+            if (nameA < nameB) {return -1;}
+            if (nameA > nameB) {return 1;}
             return 0;
         });
-        //showTeams(allTeamsArray);
-        filterTeams(allTeamsArray,query="lan");
+
+        displayTeams(teamsArray);
     })
+    
+/*     const searchForm = document.getElementById('searchForm')
+
+    searchForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        query = e.target.search.value
+        filterTeams(allTeamsArray,query)
+    });
     
     const dropdown = document.getElementById('sort')
 
     dropdown.addEventListener('change', () => {
         const selectedOption = dropdown.value;
         sortTeams(allTeamsArray,selectedOption)
-    });
+    }); */
+};
+
+//map array
+function mapTeamData(array) {
+    return array.map(team => ({
+        name: team.name,
+        abb: team.abbreviation,
+        firstYearOfPlay: team.firstYearOfPlay,
+        conference: team.conference.name,
+        division: team.division.name,
+        divisionAbb: team.division.nameShort,
+        venue: team.venue.name,
+        website: team.officialSiteUrl
+    }))
 };
 
 
 
 //display team information
-function showTeams(array) {
+function displayTeams(array) {
     const list = document.getElementById('list');
     list.innerText = '';
     array.forEach(team => {
@@ -50,12 +70,12 @@ function showTeams(array) {
         const venue = document.createElement('li');
         const teamWebsite = document.createElement('li')
 
-        teamName.textContent = `${team.name}, '${team.abbreviation}'`;
+        teamName.textContent = `${team.name}, '${team.abb}'`;
         firstYearOfPlay.textContent = `First Year of Play: ${team.firstYearOfPlay}`;
-        conference.textContent = `Conference: ${team.conference.name}`;
-        division.textContent = `Division: ${team.division.name}, '${team.division.nameShort}'`;
-        venue.textContent = `Venue: ${team.venue.name}`;
-        teamWebsite.textContent = `Link to team website: ${team.officialSiteUrl}`;
+        conference.textContent = `Conference: ${team.conference}`;
+        division.textContent = `Division: ${team.division}, '${team.divisionAbb}'`;
+        venue.textContent = `Venue: ${team.venue}`;
+        teamWebsite.textContent = `Link to team website: ${team.website}`;
 
         list.appendChild(teamName);
         list.appendChild(teamInfoContainer);
@@ -64,6 +84,8 @@ function showTeams(array) {
         teamInfoContainer.appendChild(division);
         teamInfoContainer.appendChild(venue);
         teamInfoContainer.appendChild(teamWebsite);
+
+
 
     }); 
 };
@@ -92,120 +114,14 @@ function sortTeams(array, option) {
 
 //filter displayed results
 function filterTeams(array,query) {
-    const newArray = [...array];
-    const filteredArray = newArray.filter((team) =>
+    const filteredArray = array.filter((team) =>
     team.name.toLowerCase().includes(query.toLowerCase()) ||
-    team.abbreviation.toLowerCase().includes(query.toLowerCase()) ||
+    team.abb.toLowerCase().includes(query.toLowerCase()) ||
     team.firstYearOfPlay.includes(query.toString()) ||
-    team.conference.name.toLowerCase().includes(query.toLowerCase()) ||
-    team.division.name.toLowerCase().includes(query.toLowerCase()) ||
-    team.division.nameShort.toLowerCase().includes(query.toLowerCase()) ||
-    team.venue.name.toLowerCase().includes(query.toLowerCase())
+    team.conference.toLowerCase().includes(query.toLowerCase()) ||
+    team.division.toLowerCase().includes(query.toLowerCase()) ||
+    team.divisionAbb.toLowerCase().includes(query.toLowerCase()) ||
+    team.venue.toLowerCase().includes(query.toLowerCase())
     );
-    console.log(filteredArray);
-    showTeams(filteredArray)
+    displayTeams(filteredArray);
 };
-    
-
-
-// sort teams alphabetically
-function sortTeamAlpha(array) {
-    const newArray = [...array];
-    const sortedArray = newArray.sort((a,b) => {
-        const nameA = a.name.toUpperCase();
-        const nameB = b.name.toUpperCase();
-        if (nameA < nameB) {
-            return -1;
-        }
-        if (nameA > nameB) {
-            return 1;
-        }
-        return 0;
-    });
-    showTeams(sortedArray);
-    console.log(sortedArray);
-};
-
-//sort first year of play numerically
-function sortYearNum(array) {
-    const newArray = [...array];
-    const sortedArray = newArray.sort((a,b) => a.firstYearOfPlay - b.firstYearOfPlay)
-    showTeams(sortedArray);
-};
-
-//sort options alphabetically
-function sortAlpha(array, option) {
-    const newArray = [...array];
-    const sortedArray = newArray.sort((a,b) => {
-        const nameA = a[option].name.toUpperCase();
-        const nameB = b[option].name.toUpperCase();
-        if (nameA < nameB) {
-            return -1;
-        }
-        if (nameA > nameB) {
-            return 1;
-        }
-        return 0;
-    });
-    showTeams(sortedArray);
-};
-
-//sort conference alphabetically
-function sortConferenceAlpha(array) {
-    const newArray = [...array];
-    const sortedArray = newArray.sort((a,b) => {
-        const nameA = a.conference.name.toUpperCase();
-        const nameB = b.conference.name.toUpperCase();
-        if (nameA < nameB) {
-            return -1;
-        }
-        if (nameA > nameB) {
-            return 1;
-        }
-        return 0;
-    });
-    showTeams(sortedArray);
-};
-
-//sort division alphabetically
-function sortDivisionAlpha(array) {
-    const newArray = [...array];
-    const sortedArray = newArray.sort((a,b) => {
-        const nameA = a.division.name.toUpperCase();
-        const nameB = b.division.name.toUpperCase();
-        if (nameA < nameB) {
-            return -1;
-        }
-        if (nameA > nameB) {
-            return 1;
-        }
-        return 0;
-    });
-    showTeams(sortedArray);
-};
-
-//sort venue alphabetically
-function sortVenueAlpha(array) {
-    const newArray = [...array];
-    const sortedArray = newArray.sort((a,b) => {
-        const nameA = a.venue.name.toUpperCase();
-        const nameB = b.venue.name.toUpperCase();
-        if (nameA < nameB) {
-            return -1;
-        }
-        if (nameA > nameB) {
-            return 1;
-        }
-        return 0;
-    });
-    showTeams(sortedArray);
-};
-
-//event listener for sort dropdown
-/* const dropdown = document.getElementById('sort')
-
-dropdown.addEventListener('change', () => {
-    const selectedOption = dropdown.option;
-    console.log(selectedOption)
-});
-*/

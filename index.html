@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .searchbox, .sort {
+        .search, .sort {
             display: inline-block;
         }
     </style>
@@ -13,11 +13,13 @@
 <body>
     <script src="index.js"></script>
     <h3>
-        <div name ="searchbox" class="searchbox">
-            <label for="searchbox">Filter:</label>
-            <input type="text" id="searchbox" placeholder="Type and press enter to filter" size="25">
+        <div class="search">
+            <form action="#" method="POST" id="searchForm">
+                <label for="search">Filter:</label>
+                <input type="text" id="search" name="search" placeholder="Filter" value="">
+            </form>
         </div>
-        <div name="sort" class="sort">
+        <div class="sort">
             <label for="sort">Sort by:</label>
             <select name="sort" id="sort">
                 <option value = "" disabled selected hidden>Select for sort options</option>
