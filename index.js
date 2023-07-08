@@ -32,8 +32,8 @@ function fetchData() {
         
         dropdown.addEventListener('change', () => {
             const selectedOption = dropdown.value;
-            sortedArray = sortTeams(teamsArray,selectedOption)
-            console.log(sortedArray)
+            sortedArray = sortTeams(filteredArray,selectedOption)
+            //console.log(sortedArray)
             displayTeams(sortedArray);
             });
         })
@@ -121,17 +121,3 @@ function filterTeams(array, query) {
      });
     return filteredArray;
 };
-
-
-/*  team.name.toLowerCase().includes(query.toLowerCase()) ||
-    team.abb.toLowerCase().includes(query.toLowerCase()) ||
-    team.firstYearOfPlay.includes(query.toString()) ||
-    team.conference.toLowerCase().includes(query.toLowerCase()) ||
-    team.division.toLowerCase().includes(query.toLowerCase()) ||
-    team.divisionAbb.toLowerCase().includes(query.toLowerCase()) ||
-    team.venue.toLowerCase().includes(query.toLowerCase()) */
-/*     );
-    displayTeams(filteredArray);
-};
-
-for */
