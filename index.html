@@ -16,12 +16,17 @@
         <div class="search">
             <form action="#" method="POST" id="searchForm">
                 <label for="search">Filter:</label>
-                <input type="text" id="search" name="search" placeholder="Filter" value="">
+                <input type="text"
+                id="search"
+                name="search"
+                placeholder="Type and press enter to filter"
+                value=""
+                style="width: 175px">
             </form>
         </div>
         <div class="sort">
             <label for="sort">Sort by:</label>
-            <select name="sort" id="sort">
+            <select name="sort" id="sort" style="width: 215px">
                 <option value = "" disabled selected hidden>Select for sort options</option>
                 <option value = "firstYearOfPlay">First Year of Play, numerically</option>
                 <option value = "conference">Conference, alphabetically</option>
@@ -36,9 +41,6 @@
     </h3>
     <h1 id="title">NHL Teams</h1>
     <div id="teams-container">
-        <ul id="list">
-
-        </ul>
     </div>
 </body>
 </html>

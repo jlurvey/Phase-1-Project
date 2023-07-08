@@ -19,8 +19,12 @@ function fetchData() {
         searchForm.addEventListener('submit', (e) => {
             e.preventDefault();
             query = e.target.search.value
-            filteredArray = filterTeams(teamsArray,query);
+            filteredArray = filterTeams(filteredArray,query);
+            //to filter from displayed teams, uncomment first line below and comment second line
+            //filteredArray = filterTeams(teamsArray,query);
             displayTeams(filteredArray);
+            searchForm.reset()
+            dropdown.value = ""
             return filteredArray;
         });
     
@@ -31,9 +35,20 @@ function fetchData() {
             const selectedOption = dropdown.value;
             sortedArray = sortTeams(filteredArray,selectedOption)
             displayTeams(sortedArray);
-            });
-        })
-    };
+        });
+        
+
+        //reset event listener
+        const button = document.getElementById('reset')
+
+        button.addEventListener('click', () => {
+            displayTeams(teamsArray);
+            filteredArray = teamsArray
+            dropdown.value = ""
+            search.value = ""
+        });
+
+    })};//end of fetchData
 
 //map array
 function mapTeamData(array) {
@@ -53,23 +68,26 @@ function mapTeamData(array) {
 
 //display team information
 function displayTeams(array) {
-    const list = document.getElementById('list');
+    const list = document.getElementById('teams-container');
     list.innerText = '';
     array.forEach(team => {
-        const teamName = document.createElement('li');
+        const teamName = document.createElement('h3');
         const teamInfoContainer = document.createElement('ul');
         const firstYearOfPlay = document.createElement('li');
         const conference = document.createElement('li');
         const division = document.createElement('li');
         const venue = document.createElement('li');
-        const teamWebsite = document.createElement('li')
+        const teamWebsite = document.createElement('li');
+        const websiteLink = document.createElement('a');
 
         teamName.textContent = `${team.name}, '${team.abb}'`;
         firstYearOfPlay.textContent = `First Year of Play: ${team.firstYearOfPlay}`;
         conference.textContent = `Conference: ${team.conference}`;
         division.textContent = `Division: ${team.division}, '${team.divisionAbb}'`;
         venue.textContent = `Venue: ${team.venue}`;
-        teamWebsite.textContent = `Link to team website: ${team.website}`;
+        teamWebsite.textContent = `Link to team website: `;
+        websiteLink.href = team.website;
+        websiteLink.textContent = team.website;
 
         list.appendChild(teamName);
         list.appendChild(teamInfoContainer);
@@ -78,6 +96,7 @@ function displayTeams(array) {
         teamInfoContainer.appendChild(division);
         teamInfoContainer.appendChild(venue);
         teamInfoContainer.appendChild(teamWebsite);
+        teamWebsite.appendChild(websiteLink);
     }); 
 };
 
@@ -93,7 +112,7 @@ function filterTeams(array, query="") {
     return filteredArray;
 };
 
-//sorts all options
+//sorts displayed resultes by dropwdown options
 function sortTeams(array, option) {
     let sortedArray = [...array];
     if (option === 'firstYearOfPlay') {
