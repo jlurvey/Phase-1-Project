@@ -12,34 +12,32 @@ function fetchData() {
     fetch('https://statsapi.web.nhl.com/api/v1/teams')
     .then((resp) => resp.json())
     .then((data) => {
-        const teamsArray = mapTeamData(data.teams)
         //initially displays teams alphabetically
-        teamsArray.sort((a,b) => {
-            const nameA = a.name.toUpperCase();
-            const nameB = b.name.toUpperCase();
-            if (nameA < nameB) {return -1;}
-            if (nameA > nameB) {return 1;}
-            return 0;
-        });
-
+        const teamsArray = sortTeams(mapTeamData(data.teams),"name")
         displayTeams(teamsArray);
+
+        filteredArray = filterTeams(teamsArray,query="");
     
         const searchForm = document.getElementById('searchForm')
 
         searchForm.addEventListener('submit', (e) => {
             e.preventDefault();
             query = e.target.search.value
-            filterTeams(teamsArray,query)
+            filteredArray = filterTeams(teamsArray,query);
+            displayTeams(filteredArray);
+            return filteredArray;
         });
-
-})
     
-/*    const dropdown = document.getElementById('sort')
-    dropdown.addEventListener('change', () => {
-        const selectedOption = dropdown.value;
-        sortTeams(allTeamsArray,selectedOption)
-    }); */
-};
+        const dropdown = document.getElementById('sort')
+        
+        dropdown.addEventListener('change', () => {
+            const selectedOption = dropdown.value;
+            sortedArray = sortTeams(teamsArray,selectedOption)
+            console.log(sortedArray)
+            displayTeams(sortedArray);
+            });
+        })
+    };
 
 //map array
 function mapTeamData(array) {
@@ -92,14 +90,13 @@ function displayTeams(array) {
 
 //sorts all options
 function sortTeams(array, option) {
-    const newArray = [...array];
+    let sortedArray = [...array];
     if (option === 'firstYearOfPlay') {
-    const sortedArray = newArray.sort((a,b) => a.firstYearOfPlay - b.firstYearOfPlay)
-    showTeams(sortedArray);
+    sortedArray = sortedArray.sort((a,b) => a.firstYearOfPlay - b.firstYearOfPlay)
     } else {
-        const sortedArray = newArray.sort((a,b) => {
-            const nameA = a[option].name.toUpperCase();
-            const nameB = b[option].name.toUpperCase();
+        sortedArray = sortedArray.sort((a,b) => {
+            const nameA = a[option].toUpperCase();
+            const nameB = b[option].toUpperCase();
             if (nameA < nameB) {
                 return -1;
             }
@@ -108,8 +105,8 @@ function sortTeams(array, option) {
             }
             return 0;
         });
-        showTeams(sortedArray);
     }
+    return sortedArray
 };
 
 //filter displayed results
@@ -118,11 +115,10 @@ function filterTeams(array, query) {
     const filteredArray = array.filter((team) => {
         for (const key in team) {
             if (team[key].toUpperCase().includes(query.toUpperCase())) {
-            return team
+            return team;
             };
         }
      });
-    displayTeams(filteredArray);
     return filteredArray;
 };
 
