@@ -1,23 +1,19 @@
-//document.addEventListener('DOMContentLoaded', () => console.log('We are connected!'));
-
-//external API or json server with mock back-end
-//get working fetch request
-
-document.addEventListener('DOMContentLoaded', () => fetchData());
-
-//hypothetically, get API to fetch data and log in console, then commit, comments present tense "working fetch"
+document.addEventListener('DOMContentLoaded', fetchData);
 
 //fetch API data
 function fetchData() {
     fetch('https://statsapi.web.nhl.com/api/v1/teams')
     .then((resp) => resp.json())
     .then((data) => {
+        
         //initially displays teams alphabetically
         const teamsArray = sortTeams(mapTeamData(data.teams),"name")
         displayTeams(teamsArray);
 
-        filteredArray = filterTeams(teamsArray,query="");
+        //establishes filteredArray variable
+        let filteredArray = filterTeams(teamsArray);
     
+        //filter event listner
         const searchForm = document.getElementById('searchForm')
 
         searchForm.addEventListener('submit', (e) => {
@@ -28,12 +24,12 @@ function fetchData() {
             return filteredArray;
         });
     
+        //sort event listener
         const dropdown = document.getElementById('sort')
         
         dropdown.addEventListener('change', () => {
             const selectedOption = dropdown.value;
             sortedArray = sortTeams(filteredArray,selectedOption)
-            //console.log(sortedArray)
             displayTeams(sortedArray);
             });
         })
@@ -82,10 +78,19 @@ function displayTeams(array) {
         teamInfoContainer.appendChild(division);
         teamInfoContainer.appendChild(venue);
         teamInfoContainer.appendChild(teamWebsite);
-
-
-
     }); 
+};
+
+//filter displayed results
+function filterTeams(array, query="") {
+    filteredArray = array.filter((team) => {
+        for (const key in team) {
+            if (team[key].toUpperCase().includes(query.toUpperCase())) {
+            return team;
+            };
+        }
+     });
+    return filteredArray;
 };
 
 //sorts all options
@@ -107,17 +112,4 @@ function sortTeams(array, option) {
         });
     }
     return sortedArray
-};
-
-//filter displayed results
-
-function filterTeams(array, query) {
-    const filteredArray = array.filter((team) => {
-        for (const key in team) {
-            if (team[key].toUpperCase().includes(query.toUpperCase())) {
-            return team;
-            };
-        }
-     });
-    return filteredArray;
 };
