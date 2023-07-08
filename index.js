@@ -23,18 +23,18 @@ function fetchData() {
         });
 
         displayTeams(teamsArray);
-    })
     
-/*     const searchForm = document.getElementById('searchForm')
+        const searchForm = document.getElementById('searchForm')
 
-    searchForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        query = e.target.search.value
-        filterTeams(allTeamsArray,query)
-    });
+        searchForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            query = e.target.search.value
+            filterTeams(teamsArray,query)
+        });
+
+})
     
-    const dropdown = document.getElementById('sort')
-
+/*    const dropdown = document.getElementById('sort')
     dropdown.addEventListener('change', () => {
         const selectedOption = dropdown.value;
         sortTeams(allTeamsArray,selectedOption)
@@ -113,15 +113,29 @@ function sortTeams(array, option) {
 };
 
 //filter displayed results
-function filterTeams(array,query) {
-    const filteredArray = array.filter((team) =>
-    team.name.toLowerCase().includes(query.toLowerCase()) ||
+
+function filterTeams(array, query) {
+    const filteredArray = array.filter((team) => {
+        for (const key in team) {
+            if (team[key].toUpperCase().includes(query.toUpperCase())) {
+            return team
+            };
+        }
+     });
+    displayTeams(filteredArray);
+    return filteredArray;
+};
+
+
+/*  team.name.toLowerCase().includes(query.toLowerCase()) ||
     team.abb.toLowerCase().includes(query.toLowerCase()) ||
     team.firstYearOfPlay.includes(query.toString()) ||
     team.conference.toLowerCase().includes(query.toLowerCase()) ||
     team.division.toLowerCase().includes(query.toLowerCase()) ||
     team.divisionAbb.toLowerCase().includes(query.toLowerCase()) ||
-    team.venue.toLowerCase().includes(query.toLowerCase())
-    );
+    team.venue.toLowerCase().includes(query.toLowerCase()) */
+/*     );
     displayTeams(filteredArray);
 };
+
+for */
